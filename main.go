@@ -8,19 +8,17 @@ import (
 )
 
 var debugString string
-
 var editor = InitEditor()
+var s tcell.Screen = InitScreen()
 
 func main() {
-	s, err := tcell.NewScreen()
-	if err != nil {
-		panic(err)
-	}
-	if err := s.Init(); err != nil {
-		panic(err)
-	}
 	defer s.Fini()
 
+	content, _ := os.ReadFile("./dic-master/pt_BR.dic")
+
+	MainBuffer.loadString(string(content))
+
+	Render()
 
 	for !editor.shouldQuit {
 		ev := s.PollEvent()
@@ -34,6 +32,8 @@ func main() {
 		case *tcell.EventError:
 			panic(ev.Error())
 		}
+
+		Render()
 	}
 }
 

@@ -12,6 +12,7 @@ const (
 	ComLoadFile
 	ComInsertRune
 	ComLogMessage
+	ComMoveCursor
 )
 
 func (c Command) Exec(args ...interface{}) {
@@ -24,6 +25,7 @@ var CommandAction = map[Command]func(ArgList) {
 	ComLoadFile:   loadFile,
 	ComInsertRune: insertRune,
 	ComLogMessage: logMessage,
+	ComMoveCursor: moveCursor,
 }
 
 // no args
@@ -36,6 +38,10 @@ func saveToFile(args ArgList) {}
 func loadFile(args ArgList) {}
 // args[0] - char rune
 func insertRune(args ArgList) {
+
+}
+// args[0] - dir rune {'u', 'd', 'l', 'r'}
+func moveCursor(args ArgList) {
 
 }
 
